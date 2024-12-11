@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Order Management - Eco Campus Exchange</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .sell-card {
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            background-color: #f8f9fa;
+        }
+
+        /* Price input and button should be next to each other */
+        .price-input {
+            width: 100px;
+            margin-right: 10px;
+            flex-grow: 1;
+        }
+
+        .d-flex .btn-success {
+            flex-shrink: 0;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .timeline-step {
+            width: 100%;
+            position: relative;
+            text-align: center;
+        }
+
+        .timeline-step::before {
+            content: '';
+            width: 100%;
+            height: 4px;
+            background-color: #e9ecef;
+            position: absolute;
+            top: 50%;
+            left: -50%;
+            z-index: -1;
+        }
+
+        .timeline-step:first-child::before {
+            display: none;
+        }
+
+        .step-indicator {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+        }
+
+        .step-text {
+            font-size: 14px;
+        }
+
+        .map-container {
+            height: 250px;
+            background-color: #f8f9fa;
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .map-fake {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #6c757d;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav" name="nav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/home">Eco Exchange Campus</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Discovery
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/orders/buy">Your Buys</a></li>
+                            <li><a class="dropdown-item" href="/orders/sell">Your Sells</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Cart Icon -->
+                <a href="/cart/add" class="me-4" style="font-size: 30px; padding-bottom: 20px; color: green">
+                    <i class="fas fa-shopping-cart text-lg"></i> <!-- Font Awesome icon for the cart -->
+                </a>
+
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" id="input" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                <div class="resultbox" id="resultbox">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+        <h2 class="mb-4">List a New Item for Sale</h2>
+
+        <form action="/sell-product" method="POST" class="mb-5">
+            <div class="row">
+                <!-- Product Name (NOT NULL) -->
+                <div class="col-md-6 mb-3">
+                    <label for="productName" class="form-label">Product Name</label>
+                    <input type="text" class="form-control" id="productName" name="product_name"
+                        placeholder="Enter product name" required>
+                </div>
+
+                <!-- Price (NOT NULL) -->
+                <div class="col-md-3 mb-3">
+                    <label for="productPrice" class="form-label">Price</label>
+                    <input type="number" class="form-control" id="productPrice" name="price" placeholder="Enter price"
+                        step="0.01" required>
+                </div>
+
+                <!-- Status (NOT NULL) -->
+                <div class="col-md-3 mb-3">
+                    <label for="status" class="form-label">Condition</label>
+                    <select class="form-control" id="status" name="status" required>
+                        <option value="new">New</option>
+                        <option value="used">Used</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Description (optional) -->
+            <div class="mb-3">
+                <label for="productDescription" class="form-label">Description</label>
+                <textarea class="form-control" id="productDescription" name="description" rows="3"
+                    placeholder="Enter product description (optional)"></textarea>
+            </div>
+
+            <div class="row">
+                <!-- Category Name (NOT NULL) -->
+                <div class="col-md-6 mb-3">
+                    <label for="categoryName" class="form-label">Category</label>
+                    <select class="form-control" id="categoryName" name="category_name" required>
+                        <option value="" disabled selected>Select Category</option>
+                        <option value="Electronics & Gadgets">Electronics & Gadgets</option>
+                        <option value="Books & Stationery">Books & Stationery</option>
+                        <option value="Study Tools & Software">Study Tools & Software</option>
+                        <option value="Furniture & Organization">Furniture & Organization</option>
+                        <option value="Backpacks & Bags">Backpacks & Bags</option>
+                        <option value="Clothing & Accessories">Clothing & Accessories</option>
+                        <option value="Fitness & Sports Equipment">Fitness & Sports Equipment</option>
+                        <option value="Personal Care & Hygiene">Personal Care & Hygiene</option>
+                        <option value="Dorm/Apartment Essentials">Dorm/Apartment Essentials</option>
+                        <option value="Entertainment & Hobbies">Entertainment & Hobbies</option>
+                        <option value="Transportation">Transportation</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- User Email (NOT NULL) -->
+            <input type="hidden" name="user_email" value="<%= user.email %>">
+
+            <button type="submit" class="btn btn-primary">Sell Now</button>
+        </form>
+
+        <hr>
+
+        <!-- Heading and User's Full Name -->
+        <h2 class="mb-4">Items Listed for Sale by <strong>
+                <%= user.fname %>
+                    <%= user.lname %>
+            </strong></h2>
+
+        <!-- Check if there are any products listed -->
+        <% if (products.length> 0) { %>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <!-- Loop through products and display them -->
+                <% products.forEach(product=> { %>
+                    <div class="col">
+                        <div class="card sell-card">
+                            <div class="card-body">
+                                <!-- Product Name -->
+                                <h5 class="card-title d-flex justify-content-between align-items-center">
+                                    <span>
+                                        <%= product.product_name %>
+                                    </span>
+                                    <span class="badge bg-primary">
+                                        <%= product.category_name %>
+                                    </span>
+                                </h5>
+
+                                <!-- Product Description -->
+                                <p class="card-text">
+                                    <strong>Description:</strong>
+                                    <%= product.description || 'No description provided' %>
+                                </p>
+
+                                <!-- Product Status -->
+                                <p class="card-text">
+                                    <i
+                                        class="bi bi-circle-fill text-<%= product.status === 'new' ? 'success' : 'warning' %>"></i>
+                                    <strong>Status:</strong>
+                                    <%= product.status %>
+                                </p>
+
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <!-- Product Price -->
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" class="form-control price-input"
+                                            value="<%= product.price %>" placeholder="Set Price">
+                                    </div>
+
+                                    <!-- Sell Button -->
+                                    <button class="btn btn-success ms-2">Waiting for Buyer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+            <% } else { %>
+                <!-- Display message if no products are available -->
+                <p class="alert alert-info">No items listed for sale.</p>
+                <% } %>
+
+
+
+
+                    <!-- Sold Items Section -->
+                    <h2 class="my-5">Sold Items</h2>
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                        <!-- Sold Item 1 -->
+                        <div class="col">
+                            <div class="card sell-card">
+                                <h5 class="card-title">Mathematics Textbook</h5>
+                                <p class="card-text">Sold and delivered seccessfully</p>
+                                <div class="card-footer text-muted">Delivered on Spet 27, 2024</div>
+                            </div>
+                        </div>
+                        <!-- Sold Item 2 (Pending Buyer Confirmation) -->
+                        <div class="col">
+                            <div class="card sell-card">
+                                <h5 class="card-title">Electric Kettle</h5>
+                                <p class="card-text">Waiting for buyer confirmation</p>
+
+                                <!-- Order Status Pipeline for Waiting Item -->
+                                <div class="timeline">
+                                    <div class="timeline-step">
+                                        <div class="step-indicator">1</div>
+                                        <div class="step-text">Order Placed</div>
+                                    </div>
+                                    <div class="timeline-step">
+                                        <div class="step-indicator">2</div>
+                                        <div class="step-text">Processing</div>
+                                    </div>
+                                    <div class="timeline-step">
+                                        <div class="step-indicator">3</div>
+                                        <div class="step-text">Shipped</div>
+                                    </div>
+                                    <div class="timeline-step">
+                                        <div class="step-indicator">4</div>
+                                        <div class="step-text">Waiting for Buyer</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

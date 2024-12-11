@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listing History</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/listingTrade.css' />
+</head>
+<body>
+    <%- include('partials/loggedInNavbar') %>
+    <h1>Listing Trades</h1>
+    <div class="listing-container">
+    <% if(!trades || trades.length === 0) { %>
+            <h2>You don't have any trade</h2>
+    <% } else { %>
+          <% trades.forEach(function(trade) { %>
+            <div class="card trade-card" >
+              <div class="card-body">   
+                <h5 class="card-title">Status: <%= trade.trade_status%></h5>
+                <p class="card-text">Trade ID: <%= trade.trade_id %></p>
+                <p class="card-text">Trade Time: <%= trade.created_at %></p>
+                <button class="btn btn-primary" onclick="window.location.href='/trade/<%= trade.starter_product_id %>/<%= trade.responder_product_id %>';">Go to trade</button>
+              </div>
+            </div>
+            <% }); %>
+              <% } %>
+    </div>
+    <!-- Bootstrap JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+  integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+  integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+  crossorigin="anonymous"></script>
+<!-- JS -->
+<script type="module" src="search.js"></script>
+</body>
+</html>

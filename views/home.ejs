@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <!-- Bootstrap Style CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<body>
+  <%- include('partials/navbar') %>
+
+    <div class="resultbox" id="resultbox"></div>
+
+    <div class="container my-4">
+      <h3>About the Eco Campus Exchange Project</h3>
+      <p>The <strong>Eco Campus Exchange</strong> project is an online, campus-based marketplace where students,
+        faculty members, and staff of the university can buy, sell, and exchange second-hand textbooks, lab equipment,
+        and gadgets. This platform not only promotes the sustainability initiatives of the university but also ensures
+        that the community has easy access to affordable resources.</p>
+      <p>In this system, real-time responsiveness and scalability are prioritized using an event-driven architecture.
+        The shopping cart and order management modules allow users to add items, manage their orders, and track their
+        purchase or trade statuses. These features collectively enhance the user experience while supporting the
+        eco-friendly goals of the university.</p>
+    </div>
+
+      <!-- Bootstrap Script CDN -->
+
+      <script type="module" src="search.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+      <script src="/js/productListingDom.js"></script>
+</body>
+
+</html>

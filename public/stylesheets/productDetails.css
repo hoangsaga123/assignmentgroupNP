@@ -1,0 +1,98 @@
+/* Gobal */
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Flex Container */
+
+.productTitleContainer {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+}
+
+/* Product Title Section */
+
+.productTitleSection {
+    padding: 20px;
+    flex-basis: 34%;
+    background-color: white;
+}
+
+/* Product Detail Section */
+
+#productDetailsSection {
+    flex-basis: 33%;
+    padding: 20px;
+}
+
+
+/* Price and Order Section */
+
+.priceAndOrderSection {
+
+    border-left: solid 1px black;
+    padding: 20px;
+    flex-basis: 33%;
+    background-color: white;
+
+}
+
+#addToCartForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formItem {
+    width: 100%;
+    align-self: center;
+    margin-bottom: 10px;
+}
+
+#addToCartForm button {
+    border-radius: 5px;
+    border: 0px;
+}
+
+#addToCartBtn {
+    background-color: rgb(255, 242, 0);
+    font-weight: bold;
+}
+
+#buyNowBtn {
+    background-color: rgb(5, 184, 5);
+    font-weight: bold;
+}
+
+
+/* FeedBack and Rating styles section */
+
+.feedbackAndRatingSection {
+    background-color: white;
+    width: 100%;
+    margin: 0;
+}
+
+.btn-outline-primary {
+    margin-bottom: 10px;
+    /* Adjust spacing as needed */
+}
+
+.productImage {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.main-button {
+    margin-bottom: 10px;
+}
+
+.main-form {
+    margin-top: 100px;
+}

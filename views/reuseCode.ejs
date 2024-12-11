@@ -1,0 +1,123 @@
+ <!-- loggedIn_home.ejs -->
+ 
+ <!--<div class="container my-4">
+    <h1 class="mb-4 text-center">Available Products for Sale</h1>-->
+
+    <!--<div class="row"> -->
+      <!-- Filters Section -->
+      <!--<div class="col-md-3">
+        <h4>Filter by Category</h4>
+        <select id="categoryFilter" class="form-select mb-3">
+          <option value="">All Categories</option>
+          <% const categories=[...new Set(productsOnSale.map(product=> product.category_name))]; %>
+            <% categories.forEach(category=> { %>
+              <option value="<%= category %>">
+                <%= category %>
+              </option>
+              <% }) %>
+        </select>
+      
+
+      </div>
+     -->
+
+      
+
+      <!-- Products On Sale Display -->
+      <!--
+      <div class="col-md-9">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <% productsOnSale.forEach(product=> { %>
+            <div class="col">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <%= product.product_name %>
+                  </h5>
+                  <p class="card-text">
+                    <%= product.description || 'No description available' %>
+                  </p>
+                  <p class="card-text"><strong>Price:</strong> $<%= product.price %>
+                  </p>
+                  <p class="card-text"><strong>Category:</strong>
+                    <%= product.category_name %>
+                  </p>
+                  <p class="card-text"><strong>Status:</strong>
+                    <%= product.status %>
+                  </p>
+                  <form method="POST" action="/cart/add">
+                    <input type="hidden" name="product" value="<%= product.product_id %>">
+
+                    <button class="btn btn-primary" type="submit">Add to Cart</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+        </div>
+      </div>
+    
+    </div>
+-->
+    <!-- Products Owned Section -->
+     <!--
+    <h1 class="mb-4 text-center mt-5">Your Owned Products</h1>-->
+    <!--
+    <div class="row">
+      <div class="col-md-3">
+        Additional filters for owned products can be added here 
+      </div>
+
+      <div class="col-md-9">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <% productsOwned.forEach(product=> { %>
+            <div class="col">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <%= product.product_name %>
+                  </h5>
+                  <p class="card-text">
+                    <%= product.description || 'No description available' %>
+                  </p>
+                  <p class="card-text"><strong>Price:</strong> $<%= product.price %>
+                  </p>
+                  <p class="card-text"><strong>Category:</strong>
+                    <%= product.category_name %>
+                  </p>
+                  <p class="card-text"><strong>Status:</strong>
+                    <%= product.status %>
+                  </p>
+                  <p class="card-text"><strong>Flag:</strong>
+                    <%= product.flag || 'HOLD' %>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+        </div>
+      </div>
+    </div>
+  </div>
+-->
+
+
+
+<!--
+  <script>
+    // Add event listener for category filter
+    document.getElementById('categoryFilter').addEventListener('change', function () {
+      const selectedCategory = this.value;
+      const cards = document.querySelectorAll('.card');
+
+      cards.forEach(card => {
+        const category = card.querySelector('.card-text:nth-of-type(3)').innerText.split(': ')[1]; // Extract category
+        if (selectedCategory === '' || category === selectedCategory) {
+          card.style.display = 'block'; // Show card
+        } else {
+          card.style.display = 'none'; // Hide card
+        }
+      });
+    });
+  </script>
+-->

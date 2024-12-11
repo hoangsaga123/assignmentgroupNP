@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%= title %>
+  </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="/stylesheets/feedbackpage.css">
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+
+</head>
+
+<body>
+
+  <%- include('partials/loggedInNavbar') %>
+    <h2>Your review</h2>
+    <div class="row">
+      <div class="col-md-3" style="background-color: #f8f9fa; height: 50vh;">
+        <p>Product</p>
+      </div>
+      <div class="col-md-9" style="background-color: #f8f9fa; height: 50vh;">
+        <div class="container mt-4">
+          <!-- Button trigger for collapse -->
+          <form action="/create-feedback-submit" method="POST">
+            <input type="hidden" name="productId" value="<%= product_id %>">
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+              <input type="radio" class="btn-check" name="rating_condition" id="btnradio1" value="Very Good"
+                autocomplete="off">
+              <label class="btn btn-outline-primary" for="btnradio1">Very Good</label>
+
+              <input type="radio" class="btn-check" name="rating_condition" id="btnradio2" value="Good"
+                autocomplete="off">
+              <label class="btn btn-outline-primary" for="btnradio2">Good</label>
+
+              <input type="radio" class="btn-check" name="rating_condition" id="btnradio3" value="OK"
+                autocomplete="off">
+              <label class="btn btn-outline-primary" for="btnradio3">OK</label>
+
+              <input type="radio" class="btn-check" name="rating_condition" id="btnradio4" value="Bad"
+                autocomplete="off">
+              <label class="btn btn-outline-primary" for="btnradio4">Bad</label>
+
+              <input type="radio" class="btn-check" name="rating_condition" id="btnradio5" value="Very Bad"
+                autocomplete="off">
+              <label class="btn btn-outline-primary" for="btnradio5">Very Bad</label>
+            </div>
+
+            <!-- Collapsible content -->
+
+            <div class="card card-body">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Headline for your feedback"
+                  aria-label="Headline for your feedback" aria-describedby="button-addon2" id="feedback_headline"
+                  name="feedback_headline">
+              </div>
+
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">FeedBack</label>
+                <textarea class="form-control" id="feedback_description" name="feedback_description"
+                  rows="10"></textarea>
+              </div>
+
+
+
+              <div class="d-flex justify-content-between">
+                <div class="d-grid gap-2 card">
+                  <input type="file" id="fileInput" class="file-input" accept="image/*,video/*" />
+                  <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                    <div class="progress-text" id="progressText"></div>
+                  </div>
+                  <div class="file-details">
+                    <div class="file-name" id="fileName"></div>
+                    <button class="clear-button" id="clearButton">
+                      <i class="fas fa-times"></i>
+                      Clear
+                    </button>
+                  </div>
+                  <div class="preview-container" id="previewContainerUploadFile"></div>
+                </div>
+
+
+
+                <div class="d-grid gap-2">
+                  <button class="btn btn-primary" type="submit">Publish</button>
+                </div>
+              </div>
+              <div class="modal" id="myModal">
+                <span class="close" id="closeModal">&times;</span>
+                <img class="modal-content" id="uploadedImageModal" name="image_path">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script type="module" src="addpictureandvideo.js"></script> -->
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<div class="productListingContainer">
+  <!-- Scrollable Side -->
+  <div class="scrollable-side">
+    <div class="scrollable-side-content">
+      <h2>Filter content</h2>
+
+      <!-- Category filter -->
+      <button type="button" class="filterCollapsible"><img src="/img/ui/dropdown-icon.svg" alt="dropdown icon"
+          class="dropdown-icon" />Categories</button>
+      <div class="content">
+        <ul class="">
+          <% categories.forEach(function(category) { %>
+            <li class="">
+              <input class="form-check-input category-filter" type="checkbox" value="<%= category.category_name %>"
+                id="<%= category.category_name %>">
+              <label class="form-check-label" for="<%= category.category_name %>">
+                <%= category.category_name %>
+              </label>
+            </li>
+            <% }); %>
+        </ul>
+      </div>
+
+      <!-- Condition filter -->
+      <button type="button" class="filterCollapsible"><img src="/img/ui/dropdown-icon.svg" alt="dropdown icon"
+          class="dropdown-icon" />Condition</button>
+      <div class="content">
+        <ul class="">
+          <li class="">
+            <input class="form-check-input condition-filter" type="checkbox" value="new" id="new">
+            <label class="form-check-label" for="new">New</label>
+          </li>
+          <li class="">
+            <input class="form-check-input condition-filter" type="checkbox" value="used" id="used">
+            <label class="form-check-label" for="used">Used</label>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Price filter -->
+      <button type="button" class="filterCollapsible"><img src="/img/ui/dropdown-icon.svg" alt="dropdown icon"
+          class="dropdown-icon" />Price</button>
+      <div class="content">
+        <ul class="">
+          <label for="priceRange" class="form-label">Price</label>
+          <input type="range" class="form-range" min="0" max="2000" step="1" id="priceRange">
+          <p>Max Price: $<span id="priceRangeShow"></span></p>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Static Side -->
+  <div class="static-side">
+    <% if(products || products.length !==0) { %>
+      <% let productIsSell=false; %>
+        <% products.forEach(function(product) { %>
+          <% if (product.flag !=='BUY' && product.flag !=='TRADE' ) { %>
+            <div class="card product-card" onclick="redirectProductDetail(<%= product.product_id %>)"
+              data-user-current="<%= product.user_email %>" data-product-id="<%= product.product_id %>"
+              data-category="<%= product.category_name %>" data-condition="<%= product.status %>"
+              data-price="<%= product.price %>">
+              <img src="<%= product.image_path %>" class="card-img-top" alt="<%= product.product_name %>">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= product.product_name %>
+                </h5>
+                <p class="card-text">$<%= product.price %>
+                </p>
+                <div class="button-container">
+                  <% if(product.user_email !==user.email) { %>
+                    <form method="POST" action="/cart/add">
+                      <input type="hidden" name="product" value="<%= product.product_id %>">
+                      <button class="btn btn-primary" onclick="event.stopPropagation();" type="submit">Add to
+                        Cart</button>
+                    </form>
+                    <button class="btn btn-warning" onclick="window.location.href='/trade/select/<%= product.product_id %>';
+                    event.stopPropagation();">Start Trade</button>
+                    <% } else { %>
+                      <h2>Your product</h2>
+                      <% } %>
+
+                </div>
+              </div>
+            </div>
+            <% productIsSell=true; %>
+              <% } %>
+                <% }); %>
+                  <% if(productIsSell===false) { %>
+                    <h2>No Product Listing yet...</h2>
+                    <% } %>
+                      <% } %>
+  </div>
+</div>

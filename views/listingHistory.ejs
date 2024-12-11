@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listing History</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel='stylesheet' href='/stylesheets/listingHistory.css' />
+</head>
+
+<body>
+  <%- include('partials/loggedInNavbar') %>
+    <h1>Listing History</h1>
+    <div class="listing-container">
+      <% if(!products || products.length===0) { %>
+        <h2>No products listed yet</h2>
+        <% } else { %>
+          <% products.forEach(function(product) { %>
+            <div class="card product-card" data-user-current="<%= product.user_email %>"
+              data-product-id="<%= product.product_id %>" data-category="<%= product.category_name %>"
+              data-condition="<%= product.status %>" data-price="<%= product.price %>">
+              <img src="<%= product.image_path %>" class="card-img-top" alt="<%= product.product_name %>">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= product.product_name %>
+                </h5>
+                <p class="card-text">Price: $<%= product.price %>
+                </p>
+                <p class="card-text">Description: <%= product.description %>
+                </p>
+                <p class="card-text">Category: <%= product.category_name %>
+                </p>
+                <p class="card-text">Condtion: <%= product.status %>
+                </p>
+                <% if (product.flag==='SELL' || product.flag==='CART' ) { %>
+                  <button type="button" class="btn btn-danger card-text main-button"
+                    onclick="window.location.href='/product-detail/delete/<%= product.product_id %>';">Delete your
+                    product</button>
+                  <button type="button" class="btn btn-primary card-text"
+                    onclick="window.location.href='/product-detail/edit/<%= product.product_id %>';">Edit your
+                    product</button>
+                  <% } else if ( product.flag==='BUY' ) { %>
+                    <button type="button" class="btn btn-success card-text">Already Sold</button>
+                    <% } else { %>
+                      <button type="button" class="btn btn-warning card-text">Already Traded</button>
+                      <% } %>
+              </div>
+            </div>
+            <% }); %>
+              <% } %>
+    </div>
+    <!-- Bootstrap JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+      integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+      crossorigin="anonymous"></script>
+    <!-- JS -->
+    <script type="module" src="search.js"></script>
+</body>
+
+</html>

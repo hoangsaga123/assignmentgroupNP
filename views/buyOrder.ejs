@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Order Management - Eco Campus Exchange</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .timeline-step {
+            width: 100%;
+            position: relative;
+            text-align: center;
+        }
+
+        .timeline-step::before {
+            content: '';
+            width: 100%;
+            height: 4px;
+            background-color: #e9ecef;
+            position: absolute;
+            top: 50%;
+            left: -50%;
+            z-index: -1;
+        }
+
+        .timeline-step:first-child::before {
+            display: none;
+        }
+
+        .step-indicator {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+        }
+
+        .step-text {
+            font-size: 14px;
+        }
+
+        .map-container {
+            height: 250px;
+            background-color: #f8f9fa;
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .map-fake {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #6c757d;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('partials/loggedInNavbar') %>
+
+        <div class="container my-4">
+            <h1 class="mb-4 text-center">Your Orders</h1>
+
+            <!-- Order Cards Section -->
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                <% products.forEach(product=> { %>
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%= product.product_name %>
+                                </h5>
+                                <p class="card-text">
+                                    <%= product.description || 'No description available' %>
+                                </p>
+                                <p class="card-text"><strong>Price:</strong> $<%= product.price %>
+                                </p>
+                            </div>
+                            <div class="card-footer text-muted">
+                                Ordered on: <%= new Date(product.created_at).toLocaleDateString() %>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+
+            <% if (products.length===0 && message !=='' ) { %>
+                <div class="alert alert-info" role="alert">
+                    <%= message %>
+                </div>
+                <% } %>
+
+                    <br><br><br>
+
+                    <!-- Order Tracking Timeline -->
+                    <div class="timeline mb-4 mt-4">
+                        <div class="timeline-step">
+                            <div class="step-indicator">1</div>
+                            <div class="step-text">Processing</div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="step-indicator">2</div>
+                            <div class="step-text">Shipped</div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="step-indicator">3</div>
+                            <div class="step-text">Out for Delivery</div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="step-indicator">4</div>
+                            <div class="step-text">Delivered</div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="step-indicator">5</div>
+                            <div class="step-text">Completed</div>
+                        </div>
+                    </div>
+
+                    <!-- Order Actions -->
+                    <div class="d-flex justify-content-between mb-4">
+                        <form action="/orders/cancel" method="POST">
+                            <button type="submit" class="btn btn-danger">Cancel Order</button>
+                        </form>
+                        <button class="btn btn-primary">Your order has successfully been purchased</button>
+                    </div>
+
+                    <!-- Fake Google Map Embed -->
+                    <div class="map-container">
+                        <div class="map-fake">Google Map Embed - Tracking Location</div>
+                    </div>
+        </div>
+
+
+        <!-- Scripts -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

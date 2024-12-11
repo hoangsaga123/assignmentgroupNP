@@ -1,0 +1,71 @@
+ul.feedback-list {
+    list-style-type: none;
+    /* Remove bullet points */
+    padding: 0;
+    /* Remove default padding */
+}
+
+ul.feedback-list li {
+    background-color: #ffffff;
+    /* White background for each feedback item */
+    border: 1px solid #ddd;
+    /* Light border around each item */
+    border-radius: 8px;
+    /* Rounded corners */
+    margin-bottom: 15px;
+    /* Space between feedback items */
+    padding: 15px;
+    /* Space inside the feedback item */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Light shadow for a card-like effect */
+}
+
+ul.feedback-list li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+ul.feedback-list li h4 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+ul.feedback-list li p {
+    margin: 0;
+    /* Remove default margin */
+    color: #555;
+    /* Slightly lighter text color */
+}
+
+ul.feedback-list li p.rating {
+    font-weight: bold;
+    /* Make the rating stand out */
+    color: #007bff;
+    /* Blue color for the rating */
+    margin-top: 10px;
+    /* Space above the rating */
+}
+
+ul.feedback-list li p.email {
+    font-size: 0.9rem;
+    /* Slightly smaller font size for email */
+    color: red;
+    /* Even lighter text color for email */
+    margin-top: 5px;
+    /* Space above the email */
+}
+
+.feedback-container {
+    height: fit-content;
+}
+
+.advertisement-container {
+    height: 100%;
+    background-color: #f8f9fa;
+}
+
+.feedback-list-container {
+    height: 100%;
+    background-color: #e9ecef;
+}

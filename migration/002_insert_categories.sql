@@ -1,0 +1,12 @@
+INSERT INTO categories (category_name, description) VALUES
+    ('Electronics & Gadgets', 'Essential tech tools that aid in learning, research, and staying connected. These products help students access educational materials, take notes, and communicate with peers and instructors.'),
+    ('Books & Stationery', 'Traditional study materials, including physical and digital resources for note-taking, planning, and academic writing. These products are vital for organization and academic success.'),
+    ('Study Tools & Software', 'Digital tools and software that assist in learning, productivity, and academic performance. These resources range from study aids to apps that help manage assignments and exams.'),
+    ('Furniture & Organization', 'Furniture and organizational products to create a productive and comfortable study environment. These items help students stay organized and comfortable while studying or working.'),
+    ('Backpacks & Bags', 'Bags and accessories designed for carrying school supplies, laptops, and personal belongings. These products offer convenience and comfort for students commuting to and from classes.'),
+    ('Clothing & Accessories', 'Essential clothing items and accessories tailored for student life, including casual wear and uniforms, if applicable. Comfortable clothing helps students balance study and active lifestyles.'),
+    ('Fitness & Sports Equipment', 'Equipment and gear that support students physical health and fitness. These products are useful for staying active and managing stress through physical activity.'),
+    ('Personal Care & Hygiene', 'Personal care items that help students maintain hygiene and self-care routines. These products ensure students feel refreshed and confident while managing their busy schedules.'),
+    ('Dorm/Apartment Essentials', 'Items designed to make dorm rooms or student apartments comfortable and functional. These products range from bedding to kitchen supplies that make living spaces more enjoyable.'),
+    ('Entertainment & Hobbies', 'Products that provide relaxation and entertainment during downtime, catering to students’ interests and hobbies outside of academic work.'),
+    ('Transportation', 'Solutions for students who need to commute to campus or move around the city. These options provide affordable and efficient transportation for students.');

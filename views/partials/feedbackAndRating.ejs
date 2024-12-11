@@ -1,0 +1,50 @@
+<!-- FeedBack and rating partial for productDetail page -->
+
+<div class="row feedback-container">
+  <!-- Left Section -->
+  <div class="col-md-3 advertisement-container">
+    <h3>Review this product</h3>
+    <p>Share your thoughts with other customers</p>
+    <div class="btn-group" role="group" aria-label="Basic outlined example">
+      <a class="btn btn-outline-primary" href="/feedback-page/<%= product.product_id %>" role="button">Write a customer
+        review</a>
+    </div>
+    <!-- Advertisment -->
+    <div class="advertisement-card card text-center">
+      <div class="card-header">
+        Back to school
+        <div class="text-end">
+          <button type="button" class="btn-close " aria-label="Close" id="close-card-btn"></button>
+        </div>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Dell XPS 13</h5>
+        <a href="/product-details/2" class="btn btn-primary">Buy Now</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Section -->
+  <div class="col-md-9 feedback-list-container">
+    <h2>Feedback From Others</h2>
+    <ul class="feedback-list">
+      <% list_feedback.forEach(function(feedback) { %>
+        <li>
+          <h4>
+            <%= feedback.feedback_headline %>
+          </h4>
+          <p>
+            <%= feedback.feedback_description %>
+          </p>
+          <p class="rating">Rating: <%= feedback.rating_condition %>
+          </p>
+          <p class="email">Email: <%= feedback.email %>
+          </p>
+        </li>
+        <% }); %>
+    </ul>
+  </div>
+</div>
+
+<script src="/js/closebutton.js"></script>
+<link rel="stylesheet" href="/stylesheets/feedback.css" />

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width-device-width, initial-scale-1.6" />
+    <title>
+        <%= title %>
+    </title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+
+    <%- include('partials/loggedInNavbar') %>
+
+    <div class="container my-4">
+        <h1 class="mb-4 text-center">
+            <%= title %>
+        </h1>
+
+        <div class="row">
+            <!-- Cart Items Section (Left) -->
+            <div class="col-md-8">
+                <h2>Your Cart</h2>
+                <% if (products && products.length> 0) { %>
+                    <div class="list-group mb-4">
+                        <% products.forEach(product=> { %>
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-start">
+                                    <img class="product-image" src="<%= product.image_path %>"
+                                        alt="Product Image" class="img-fluid me-3"
+                                        style="width: 80px; height: 80px; object-fit: cover;">
+                                    <div>
+                                        <h5 class="mb-1">
+                                            <%= product.product_name %>
+                                        </h5>
+                                        <p class="mb-1 text-muted">
+                                            <%= product.description || 'No description available' %>
+                                        </p>
+                                        <p class="mb-0"><strong>Price:</strong> $<%= product.price %>
+                                        </p>
+                                        <form action="/cart/remove/<%= product.product_id %>" method="POST">
+                                            <button type="submit" class="btn btn-danger">Remove</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div>
+                                    
+
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+                    <% } else { %>
+                        <p class="text-muted">Your cart is empty.</p>
+                        <% } %>
+            </div>
+
+            <!-- Billing Summary Section (Right) -->
+            <div class="col-md-4">
+                <h2>Billing Summary</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Item List</h4>
+                        <ul class="list-group list-group-flush mb-3">
+                            <% let totalPrice=0; %>
+                                <% products.forEach(product=> { %>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span>
+                                            <%= product.product_name %>
+                                        </span>
+                                        <span>$<%= product.price %></span>
+                                    </li>
+                                    <% totalPrice += parseFloat(product.price); %>
+                                        <% }) %>
+                        </ul>
+
+                         <div class="d-flex justify-content-between mb-3">
+                            <strong>Total:</strong>
+                            <strong>$<%= totalPrice.toFixed(2) %></strong>
+                        </div> 
+                        <form action="/cart/checkout" method="POST">
+                            <button class="btn btn-success btn-block w-100">Proceed to Checkout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <img src="https://images.squarespace-cdn.com/content/v1/54f38bd2e4b0ba5e06194182/1602170214306-YPMCP4SLT3NWHGBWEYK5/paul+edmondson+thanks+come+again+jenn+singer+gallery+sm.png"
+                height="500px" alt="Centered Image">
+        </div>
+
+    </div>
+
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/cartDom.js"></script>
+</body>
+
+</html>
